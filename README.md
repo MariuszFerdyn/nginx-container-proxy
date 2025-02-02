@@ -7,7 +7,7 @@ docker build -t nginx-container-proxy .
 ```
 # Run The container
 ```
-docker run -p 80:80 DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 --name nginx-container-proxy hnginx-container-proxy
+docker run -p 80:80 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 --name nginx-container-proxy nginx-container-proxy
 ```
 
 # Test the port forwarder
