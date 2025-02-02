@@ -1,8 +1,29 @@
-# Save as: config/vhost.d/default
-proxy_connect_timeout 90;
-proxy_send_timeout 90;
-proxy_read_timeout 90;
-proxy_buffer_size 4k;
-proxy_buffers 4 32k;
+# config/vhost.d/default
+# Increased timeouts and buffers for proxy settings
+proxy_connect_timeout 120s;
+proxy_send_timeout 120s;
+proxy_read_timeout 120s;
+
+# Increased buffer sizes
+proxy_buffer_size 16k;
+proxy_buffers 8 32k;
 proxy_busy_buffers_size 64k;
 proxy_temp_file_write_size 64k;
+
+# Keep alive settings
+proxy_http_version 1.1;
+proxy_set_header Connection "";
+
+# Additional headers
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header X-Forwarded-Host $host;
+
+# Explicitly disable caching
+proxy_cache off;
+proxy_no_cache 1;
+proxy_cache_bypass 1;
+add_header Cache-Control "no-cache, no-store, must-revalidate";
+add_header Pragma no-cache;
+add_header Expires 0;
