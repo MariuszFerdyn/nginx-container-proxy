@@ -3,15 +3,39 @@
 
 set -e
 
-# Process nginx configuration files
-envsubst '${DEFAULT_OVERRIDE_HOST} ${DEFAULT_OVERRIDE_PROTOCOL} ${DEFAULT_OVERRIDE_IP} ${DEFAULT_OVERRIDE_PORT}' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp
-mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf
+# Process default configuration
+envsubst '${DEFAULT_OVERRIDE_HOST} ${DEFAULT_OVERRIDE_PROTOCOL} ${DEFAULT_OVERRIDE_IP} ${DEFAULT_OVERRIDE_PORT}' \
+    < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
-# If environment variables are set, update vhost.d/default
-if [[ -n "$DEFAULT_OVERRIDE_HOST" && -n "$DEFAULT_OVERRIDE_IP" ]]; then
-    envsubst < /etc/nginx/vhost.d/default > /etc/nginx/vhost.d/default.tmp
-    mv /etc/nginx/vhost.d/default.tmp /etc/nginx/vhost.d/default
-fi
+# Function to create vhost configuration
+create_vhost_config() {
+    local num=$1
+    local vhost_var="VHOST${num}"
+    local override_var="VHOST${num}_OVERRIDE"
+    local port_var="VHOST${num}_OVERRIDE_PORT"
+    local protocol_var="VHOST${num}_OVERRIDE_PROTOCOL"
+    local ip_var="VHOST${num}_OVERRIDE_IP"
+    
+    # Check if this vhost is configured
+    if [[ -n "${!vhost_var}" ]]; then
+        export VHOST="${!vhost_var}"
+        export OVERRIDE="${!override_var}"
+        export PORT="${!port_var}"
+        export PROTOCOL="${!protocol_var}"
+        export IP="${!ip_var}"
+        
+        envsubst '${VHOST} ${OVERRIDE} ${PORT} ${PROTOCOL} ${IP}' \
+            < /etc/nginx/conf.d/vhost.conf.template \
+            > "/etc/nginx/conf.d/vhost_${num}.conf"
+        
+        echo "Created configuration for ${VHOST}"
+    fi
+}
+
+# Process vhost configurations (supports up to 10 vhosts)
+for i in {1..10}; do
+    create_vhost_config $i
+done
 
 # Execute CMD
 exec "$@"

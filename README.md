@@ -6,26 +6,26 @@ Nginx-Container-Proxy is a powerful and flexible solution for managing web appli
 docker build -t nginx-container-proxy .
 ```
 # Run The container
+## With default OVERRIDE HOST
 ```
 docker run -p 80:80 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 --name nginx-container-proxy nginx-container-proxy
 ```
+## With default OVERRIDE HOST and 2 additionals VHOSTS
+```
+docker run -p 80:80 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 -e VHOST1=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE_PORT=80 -e VHOST1_OVERRIDE_PROTOCOL=http -e VHOST1_OVERRIDE_IP=93.157.100.46 -e VHOST2=openinternet.h.com.pl -e VHOST2_OVERRIDE=openinternet.h.com.pl -e VHOST2_OVERRIDE_PORT=80 -e VHOST2_OVERRIDE_PROTOCOL=http -e VHOST2_OVERRIDE_IP=93.157.100.46 --name nginx-container-proxy nginx-container-proxy
+```
 
-# Test the port forwarder
-
-## Telnet to the port
+# Test the proxy
 ```
 curl http://localhost
-```
-The expected outputs in this example:
-```
-curl http://localhost
-curl: (52) Empty reply from server
-curl https://localhost
-curl: (35) error:0A000410:SSL routines::sslv3 alert handshake failure
 ```
 ## Debug in case of TCPDUMP
 ```
-docker exec -it port-forwarder /bin/bash
-tcpdump
+# Check nginx config
+docker exec nginx-proxy nginx -t
+
+# View generated configs
+docker exec nginx-proxy ls -la /etc/nginx/conf.d/
+docker exec nginx-proxy cat /etc/nginx/conf.d/vhost_1.conf
 ```
 
