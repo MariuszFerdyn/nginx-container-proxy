@@ -1,4 +1,4 @@
-# config/default.conf.template
+# Save as: config/default.conf.template
 server {
     listen 80 default_server;
     server_name ${DEFAULT_OVERRIDE_HOST};

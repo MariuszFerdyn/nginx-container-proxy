@@ -1,0 +1,10 @@
+# Save as: config/default_catchall.conf.template
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    location / {
+        return 404 "No such site configured.\n";
+    }
+}

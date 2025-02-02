@@ -1,4 +1,4 @@
-# config/vhost.conf.template
+# Save as: config/vhost.conf.template
 server {
     listen 80;
     server_name ${VHOST};

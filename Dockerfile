@@ -1,8 +1,13 @@
 # Dockerfile
 FROM nginx:alpine
 
-# Install bash and envsubst
-RUN apk add --no-cache bash gettext dos2unix
+# Install required packages
+RUN apk add --no-cache \
+    bash \
+    gettext \
+    dos2unix \
+    tcpdump \
+    curl
 
 # Create necessary directories
 RUN mkdir -p /etc/nginx/vhost.d /etc/nginx/conf.d
@@ -11,9 +16,10 @@ RUN mkdir -p /etc/nginx/vhost.d /etc/nginx/conf.d
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Copy nginx configuration files
+# Copy config files and templates
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY config/default_catchall.conf.template /etc/nginx/conf.d/default_catchall.conf.template
 COPY config/vhost.conf.template /etc/nginx/conf.d/vhost.conf.template
 COPY config/vhost.d/default /etc/nginx/vhost.d/default
 
@@ -22,11 +28,6 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN dos2unix /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh
 
-# Default environment variables
-ENV DEFAULT_OVERRIDE_HOST=""
-ENV DEFAULT_OVERRIDE_PORT="80"
-ENV DEFAULT_OVERRIDE_PROTOCOL="http"
-ENV DEFAULT_OVERRIDE_IP=""
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
