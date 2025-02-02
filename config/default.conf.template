@@ -1,5 +1,4 @@
 # config/default.conf.template
-# Default server block
 server {
     listen 80 default_server;
     server_name ${DEFAULT_OVERRIDE_HOST};
