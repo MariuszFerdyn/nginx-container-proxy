@@ -4,7 +4,7 @@ Nginx-Container-Proxy is a powerful and flexible solution for managing web appli
 # Build the conatiner or download
 ```
 docker build -t nginx-container-proxy .
-docker pull mafamafa/nginx-container-proxy:202502021555
+docker pull mafamafa/nginx-container-proxy:202502022105
 ```
 # Run The container
 ## With default OVERRIDE HOST
