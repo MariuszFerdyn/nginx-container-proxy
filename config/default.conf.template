@@ -2,7 +2,10 @@
 server {
     listen 80 default_server;
     server_name ${DEFAULT_OVERRIDE_HOST};
-    
+    client_body_buffer_size     32k;
+    client_header_buffer_size   8k;
+    large_client_header_buffers 8 64k;
+
     location / {
         include /etc/nginx/vhost.d/default;
         proxy_pass ${DEFAULT_OVERRIDE_PROTOCOL}://${DEFAULT_OVERRIDE_IP}:${DEFAULT_OVERRIDE_PORT};
