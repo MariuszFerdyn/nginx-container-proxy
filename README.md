@@ -1,6 +1,7 @@
 # nginx-container-proxy
 Nginx-Container-Proxy is a powerful and flexible solution for managing web applications and services using Nginx as a reverse proxy. The standout feature of this project is its ability to configure Nginx through environment variables. This approach allows for dynamic configuration changes without the need to modify static configuration files, making it easier to adapt to different environments (development, staging, production) and deployment scenarios. Easy to use for Azure Container Apps and Azure Web Services.
 
+This code is used in Azure Hybrid Application Proxy - Scalable reverse proxy solution with flexible identity provider support: https://github.com/MariuszFerdyn/azure-multiidp-app-proxy
 # Build the conatiner or download
 ```
 docker build -t nginx-container-proxy .
