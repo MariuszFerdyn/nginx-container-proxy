@@ -9,17 +9,18 @@ docker pull mafamafa/nginx-container-proxy:202502022105
 # Run The container
 ## With default OVERRIDE HOST
 ```
-docker run -p 80:80 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=http://fast-sms.net/a.txt --name nginx-container-proxy nginx-container-proxy
+docker run -p 80:8080 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=https://glass03.h.com.pl/a.txt --name nginx-container-proxy nginx-container-proxy
 ```
 ## With default OVERRIDE HOST and 2 additionals VHOSTS
 ```
-docker run -p 80:80 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 -e VHOST1=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE_PORT=80 -e VHOST1_OVERRIDE_PROTOCOL=http -e VHOST1_OVERRIDE_IP=93.157.100.46 -e VHOST2=openinternet.h.com.pl -e VHOST2_OVERRIDE=openinternet.h.com.pl -e VHOST2_OVERRIDE_PORT=80 -e VHOST2_OVERRIDE_PROTOCOL=http -e VHOST2_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=http://fast-sms.net/a.txt --name nginx-container-proxy nginx-container-proxy
+docker run -p 80:8080 -e DEFAULT_OVERRIDE_HOST=fast-sms.net -e DEFAULT_OVERRIDE_PORT=80 -e DEFAULT_OVERRIDE_PROTOCOL=http -e DEFAULT_OVERRIDE_IP=93.157.100.46 -e VHOST1=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE_PORT=80 -e VHOST1_OVERRIDE_PROTOCOL=http -e VHOST1_OVERRIDE_IP=93.157.100.46 -e VHOST2=openinternet.h.com.pl -e VHOST2_OVERRIDE=openinternet.h.com.pl -e VHOST2_OVERRIDE_PORT=80 -e VHOST2_OVERRIDE_PROTOCOL=http -e VHOST2_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=https://glass03.h.com.pl/a.txt --name nginx-container-proxy nginx-container-proxy
 ```
 ## Only with VHOSTS configuration
 ```
-docker run -p 80:80 -e VHOST1=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE_PORT=80 -e VHOST1_OVERRIDE_PROTOCOL=http -e VHOST1_OVERRIDE_IP=93.157.100.46 -e VHOST2=openinternet.h.com.pl -e VHOST2_OVERRIDE=openinternet.h.com.pl -e VHOST2_OVERRIDE_PORT=80 -e VHOST2_OVERRIDE_PROTOCOL=http -e VHOST2_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=http://fast-sms.net/a.txt --name nginx-container-proxy nginx-container-proxy
+docker run -p 80:8080 -e VHOST1=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE=emailmarketing.fast-sms.net -e VHOST1_OVERRIDE_PORT=80 -e VHOST1_OVERRIDE_PROTOCOL=http -e VHOST1_OVERRIDE_IP=93.157.100.46 -e VHOST2=openinternet.h.com.pl -e VHOST2_OVERRIDE=openinternet.h.com.pl -e VHOST2_OVERRIDE_PORT=80 -e VHOST2_OVERRIDE_PROTOCOL=http -e VHOST2_OVERRIDE_IP=93.157.100.46 -e WEBHOOKAFTERSTART=https://glass03.h.com.pl/a.txt --name nginx-container-proxy nginx-container-proxy
 ```
 WEBHOOKAFTERSTART informs that container started and it is optional.
+All these pages are my old one, only for testing purposes.
 
 # Test the proxy
 ```
