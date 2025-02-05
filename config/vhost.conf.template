@@ -1,6 +1,6 @@
 # Save as: config/vhost.conf.template
 server {
-    listen 80;
+    listen 8080;
     server_name ${VHOST};
     
     location / {
