@@ -15,11 +15,6 @@ server {
     proxy_busy_buffers_size 64k;
     proxy_temp_file_write_size 64k;
 
-    # Enable caching
-    proxy_cache_key "$scheme$request_method$host$request_uri";
-    proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
-    proxy_cache_lock on;
-
     # Keep alive settings
     proxy_http_version 1.1;
     proxy_set_header Connection "";
