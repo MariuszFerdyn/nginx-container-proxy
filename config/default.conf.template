@@ -1,3 +1,4 @@
+# Save as: config/default.conf.template
 server {
     listen 8080 default_server;
     server_name ${DEFAULT_OVERRIDE_HOST};
@@ -33,16 +34,4 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-
-    # Enable gzip compression
-    gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-    gzip_proxied any;
-    gzip_vary on;
-}
-
-# Worker processes and connections
-worker_processes auto;
-events {
-    worker_connections 1024;
 }
