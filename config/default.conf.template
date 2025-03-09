@@ -11,6 +11,7 @@ server {
     proxy_read_timeout 120s;
 
     # Increased buffer sizes
+    proxy_buffering off
     proxy_buffer_size 16k;
     proxy_buffers 8 32k;
     proxy_busy_buffers_size 64k;
