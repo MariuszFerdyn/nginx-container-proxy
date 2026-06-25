@@ -6,7 +6,10 @@ server {
     location / {
         include /etc/nginx/vhost.d/default;
         proxy_pass ${PROTOCOL}://${IP}:${PORT};
-        
+
+        proxy_redirect ${PROTOCOL}://${OVERRIDE}:${PORT}/ /;
+        proxy_redirect ${PROTOCOL}://${OVERRIDE}/ /;
+
         proxy_pass_header Server;
         proxy_pass_header Content-Type;
         proxy_pass_header Content-Length;
