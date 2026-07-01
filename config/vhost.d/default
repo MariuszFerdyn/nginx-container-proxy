@@ -1,18 +1,23 @@
 # config/vhost.d/default
-# Increased timeouts and buffers for proxy settings
+# Timeouts - long read timeout to support long-lived WebSocket connections
 proxy_connect_timeout 120s;
-proxy_send_timeout 120s;
-proxy_read_timeout 120s;
+proxy_send_timeout 3600s;
+proxy_read_timeout 3600s;
 
-# Increased buffer sizes
+# Use HTTP/1.1 and forward WebSocket upgrade headers
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $connection_upgrade;
+
+# Disable buffering for real-time / WebSocket traffic
+proxy_buffering off;
+proxy_request_buffering off;
+
+# Buffer sizes for non-WebSocket responses
 proxy_buffer_size 16k;
 proxy_buffers 8 32k;
 proxy_busy_buffers_size 64k;
 proxy_temp_file_write_size 64k;
-
-# Keep alive settings
-proxy_http_version 1.1;
-proxy_set_header Connection "";
 
 # Additional headers
 proxy_set_header X-Real-IP $remote_addr;

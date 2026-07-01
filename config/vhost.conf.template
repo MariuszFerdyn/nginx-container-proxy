@@ -1,11 +1,18 @@
 # Save as: config/vhost.conf.template
+upstream vhost${NUM}_backend {
+    server ${IP}:${PORT};
+    keepalive 32;
+    keepalive_requests 1000;
+    keepalive_timeout 60s;
+}
+
 server {
     listen 8080;
     server_name ${VHOST};
     
     location / {
         include /etc/nginx/vhost.d/default;
-        proxy_pass ${PROTOCOL}://${IP}:${PORT};
+        proxy_pass ${PROTOCOL}://vhost${NUM}_backend;
 
         proxy_redirect ${PROTOCOL}://${OVERRIDE}:${PORT}/ /;
         proxy_redirect ${PROTOCOL}://${OVERRIDE}/ /;

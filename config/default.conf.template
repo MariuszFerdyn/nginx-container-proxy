@@ -1,29 +1,21 @@
 # Save as: config/default.conf.template
+upstream default_backend {
+    server ${DEFAULT_OVERRIDE_IP}:${DEFAULT_OVERRIDE_PORT};
+    keepalive 32;
+    keepalive_requests 1000;
+    keepalive_timeout 60s;
+}
+
 server {
     listen 8080 default_server;
     server_name ${DEFAULT_OVERRIDE_HOST};
     client_body_buffer_size     32k;
     client_header_buffer_size   8k;
     large_client_header_buffers 8 64k;
-    # Increased timeouts and buffers for proxy settings
-    proxy_connect_timeout 120s;
-    proxy_send_timeout 120s;
-    proxy_read_timeout 120s;
-
-    # Increased buffer sizes
-    proxy_buffering on;
-    proxy_buffer_size 16k;
-    proxy_buffers 8 32k;
-    proxy_busy_buffers_size 64k;
-    proxy_temp_file_write_size 64k;
-
-    # Keep alive settings
-    proxy_http_version 1.1;
-    proxy_set_header Connection "";
 
     location / {
         include /etc/nginx/vhost.d/default;
-        proxy_pass ${DEFAULT_OVERRIDE_PROTOCOL}://${DEFAULT_OVERRIDE_IP}:${DEFAULT_OVERRIDE_PORT};
+        proxy_pass ${DEFAULT_OVERRIDE_PROTOCOL}://default_backend;
 
         proxy_redirect ${DEFAULT_OVERRIDE_PROTOCOL}://${DEFAULT_OVERRIDE_HOST}:${DEFAULT_OVERRIDE_PORT}/ /;
         proxy_redirect ${DEFAULT_OVERRIDE_PROTOCOL}://${DEFAULT_OVERRIDE_HOST}/ /;

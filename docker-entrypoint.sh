@@ -67,9 +67,10 @@ create_vhost_config() {
         export PORT="${!port_var}"
         export PROTOCOL="${!protocol_var}"
         export IP="${!ip_var}"
+        export NUM="${num}"
         
         echo "Creating configuration for ${VHOST}..."
-        envsubst '${VHOST} ${OVERRIDE} ${PORT} ${PROTOCOL} ${IP}' \
+        envsubst '${VHOST} ${OVERRIDE} ${PORT} ${PROTOCOL} ${IP} ${NUM}' \
             < /etc/nginx/conf.d/vhost.conf.template \
             > "/etc/nginx/conf.d/vhost_${num}.conf"
         
